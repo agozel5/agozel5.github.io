@@ -2449,8 +2449,9 @@ window.AGD=AGD;
     .then(function(){ clearTimeout(to); busy=false; if(btn) btn.disabled=false; form.removeAttribute('aria-busy'); form.reset();
       note.innerHTML='<span class="crypt"><span class="ok">✓ '+L('Message envoyé. Merci ','Message sent. Thank you ')+nom.replace(/</g,'&lt;')+L(', je vous réponds sous 48 h.',', I will reply within 48 hours.')+'</span></span>';
       SFX.play('ok'); if(window.__agUnlock) window.__agUnlock(); })
-    .catch(function(){ clearTimeout(to); busy=false; if(btn) btn.disabled=false; form.removeAttribute('aria-busy');
-      note.innerHTML=L('L’envoi n’a pas abouti. Vous pouvez ','Sending failed. You can ')+link; });
+    .catch(function(err){ clearTimeout(to); busy=false; if(btn) btn.disabled=false; form.removeAttribute('aria-busy');
+      var why=err&&err.message&&err.message!=='send'&&err.message!=='Failed to fetch'?' <small style="display:block;opacity:.6;margin-top:4px">('+String(err.message).replace(/</g,'&lt;').slice(0,160)+')</small>':(err&&err.name==='AbortError'?' <small style="display:block;opacity:.6;margin-top:4px">(délai dépassé)</small>':(err&&err.message==='Failed to fetch'?' <small style="display:block;opacity:.6;margin-top:4px">(service injoignable)</small>':''));
+      note.innerHTML=L('L’envoi n’a pas abouti. Vous pouvez ','Sending failed. You can ')+link+why; });
   });
 
   /* =================== Idées en plus : palette ⌘K, mode scan, repère de défilement, envoi chiffré =================== */
