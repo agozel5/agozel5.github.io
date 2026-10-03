@@ -2443,7 +2443,7 @@ window.AGD=AGD;
     var btn=form.querySelector('button[type=submit]'); busy=true; if(btn) btn.disabled=true; form.setAttribute('aria-busy','true');
     note.innerHTML='<span class="crypt"><span>'+L('envoi sécurisé en cours (HTTPS)…','sending securely (HTTPS)…')+'</span></span>';
     var ctl=('AbortController' in window)?new AbortController():null, to=setTimeout(function(){ if(ctl) ctl.abort(); },15000);
-    fetch('https://formsubmit.co/ajax/abdullahgozel@hotmail.com',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},signal:ctl?ctl.signal:undefined,
+    fetch('https://formsubmit.co/ajax/9ca60ed8b160045822eb96454de37aff',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},signal:ctl?ctl.signal:undefined,
       body:JSON.stringify({name:nom,email:mail,objet:obj,message:msg,_subject:'[Portfolio] '+obj+' — '+nom,_replyto:mail,_template:'table',_captcha:'false'})})
     .then(function(r){ return r.json().catch(function(){ return {}; }).then(function(j){ if(!r.ok||String(j.success)==='false') throw new Error(j.message||'send'); return j; }); })
     .then(function(){ clearTimeout(to); busy=false; if(btn) btn.disabled=false; form.removeAttribute('aria-busy'); form.reset();
